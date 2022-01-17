@@ -66,5 +66,5 @@ class UserFactory extends Factory
                 }),
             'ownedTeams'
         );
-    }
+    }   
 }
