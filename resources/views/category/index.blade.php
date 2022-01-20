@@ -12,8 +12,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('category.create') }}" class="btn btn-primary"><i
-                        class="fas fa-plus-circle"></i>
+                <a href="{{ route('category.create') }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i>
                     Tambah</a>
             </div>
             <div class="card-body">
@@ -26,16 +25,21 @@
                     </thead>
                     <tbody>
                         @foreach($category as $key => $item)
-                            <tr>
-                                <td>{{ $key+1 }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>0</td>
-                                <td>
+                        <tr>
+                            <td>{{ $key+1 }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>0</td>
+                            <td>
+                                <form action="{{ route('category.destroy', $item->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+
                                     <a href="{{ route('category.edit', $item->id) }}"
                                         class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
+                                    <button class="btn btn-danger" onclick="return confirm('Yakin mau mengahapus data?')"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -46,5 +50,5 @@
 @endsection
 
 @push('scripts')
-
+<x-toast />
 @endpush

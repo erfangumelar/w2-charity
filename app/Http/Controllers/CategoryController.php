@@ -47,7 +47,11 @@ class CategoryController extends Controller
 
         Category::create($data);
 
-        return redirect()->route('category.index')->with('message', 'Kategori berhasil ditambahkan');
+        return redirect()->route('category.index')
+            ->with([
+                'message' => 'Kategori berhasil ditambahkan',
+                'success' => true,
+            ]);
     }
 
     /**
@@ -90,7 +94,11 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return redirect()->route('category.index')->with('message', 'Kategori berhasil ditambahkan');
+        return redirect()->route('category.index')
+            ->with([
+                'message' => 'Kategori berhasil diperbaharui',
+                'success' => true,
+            ]);
     }
 
     /**
@@ -101,6 +109,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('category.index')
+            ->with([
+                'message' => 'Kategori berhasil dihapus',
+                'success' => true,
+            ]);
     }
 }
