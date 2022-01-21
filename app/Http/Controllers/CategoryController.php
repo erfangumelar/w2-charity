@@ -8,11 +8,16 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    protected $paginate = 3;
+    protected $paginate = 6;
 
-    public function index()
+    public function index(Request $request)
     {
-        $category = Category::orderBy('name')->paginate($this->paginate);
+        $category = Category::orderBy('name')
+        ->when($request->has('q') && $request->q != "", function($query) use ($request) {
+            $query->where('name', 'LIKE', '%'. $request->q .'%');
+        })
+        ->paginate($request->rows ?? $this->paginate)
+        ->appends($request->only('rows', 'q'));
        
         return view('category.index', compact('category'));
     }
