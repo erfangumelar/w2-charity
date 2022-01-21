@@ -26,7 +26,7 @@
                     <tbody>
                         @foreach($category as $key => $item)
                         <tr>
-                            <td>{{ $key+1 }}</td>
+                            <td><x-number-table :key="$key" :model="$category"/></td>
                             <td>{{ $item->name }}</td>
                             <td>0</td>
                             <td>
@@ -43,6 +43,11 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                <div class="float-right mt-3">
+                    {{ $category->links('pagination::bootstrap-4') }}
+                </div>
+
             </div>
         </div>
     </div>
