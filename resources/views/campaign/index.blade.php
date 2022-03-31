@@ -42,4 +42,4 @@
 @endsection
 
 <x-toast />
-
+@includeIf('includes.datatable')
