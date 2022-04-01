@@ -12,7 +12,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $category = Category::orderBy('name')
+        $category = Category::orderBy('id')
         ->when($request->has('q') && $request->q != "", function($query) use ($request) {
             $query->where('name', 'LIKE', '%'. $request->q .'%');
         })
