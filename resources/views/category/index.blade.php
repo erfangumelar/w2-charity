@@ -13,7 +13,7 @@
         <x-card>
             <x-slot name="header">
                 <a href="{{ route('category.create') }}" class="btn btn-primary"><i
-                        class="fas fa-plus-circle"></i>Tambah</a>
+                        class="fas fa-plus-circle"></i> Tambah</a>
             </x-slot>
 
             <form action="" class="d-flex justify-content-between">
@@ -49,9 +49,9 @@
                     @endforeach
 
             </x-table>
-                      
+
             <x-pagination-table :model="$category"/>
-           
+
         </x-card>
 
     </div>
