@@ -90,20 +90,20 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label for="receiver">Penerima</label>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" name="receiver" class="custom-control-input" id="saya">
+                <div class="custom-control custom-radio">
+                    <input type="radio" name="receiver" class="custom-control-input" id="saya">
                     <label class="custom-control-label font-weight-normal" for="saya">Saya Sendiri</label>
                 </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" name="receiver" class="custom-control-input" id="keluarga">
+                <div class="custom-control custom-radio">
+                    <input type="radio" name="receiver" class="custom-control-input" id="keluarga">
                     <label class="custom-control-label font-weight-normal" for="keluarga">keluarga / Kerabat</label>
                 </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" name="receiver" class="custom-control-input" id="organisasi">
+                <div class="custom-control custom-radio">
+                    <input type="radio" name="receiver" class="custom-control-input" id="organisasi">
                     <label class="custom-control-label font-weight-normal" for="organisasi">Organisasi Lembaga</label>
                 </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" name="receiver" class="custom-control-input" id="lainnya">
+                <div class="custom-control custom-radio">
+                    <input type="radio" name="receiver" class="custom-control-input" id="lainnya">
                     <label class="custom-control-label font-weight-normal" for="lainnya">Lainnya</label>
                 </div>
             </div>
