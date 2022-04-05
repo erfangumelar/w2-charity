@@ -6,6 +6,7 @@ use App\Models\Campaign;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class CampaignController extends Controller
 {
@@ -20,11 +21,24 @@ class CampaignController extends Controller
         return view('campaign.index', compact('category'));
     }
 
+    public function data(Request $request)
+    {
+        $query = Campaign::orderBy('publish_date', 'desc')->get();
+
+        return datatables($query)
+            ->addIndexColumn()
+            ->escapeColumns([])
+            ->make(true);
+    }
+
+    
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
         //
@@ -55,6 +69,16 @@ class CampaignController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
+
+        $data = $request->except('path_image', 'categories');
+        $data['slug'] = Str::slug($request->title);
+        $data['path_image'] = upload('campaign', $request->file('path_image'), 'campaign');
+        $data['user_id'] = auth()->id();
+
+        $campaign = Campaign::create($data);
+        $campaign->category_campaign()->attach($request->categories);
+
+        return response()->json(['data' => $campaign, 'message' => 'Projek berhasil ditambahkan']);
     }
 
     /**

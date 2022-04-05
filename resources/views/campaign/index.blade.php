@@ -47,7 +47,22 @@
     let modal = '#modal-form';
     let table;
 
-    $('.table').dataTable();
+    table = $('.table').dataTable({
+        processing: true,
+        autoWidth: false,
+        ajax: {
+            url: '{{ route('campaign.data') }}'
+        },
+        columns: [
+            {data: 'DT_RowIndex', searchable: false, sortable: false},
+            {data: 'path_image', searchable: false, sortable: false},
+            {data: 'short_description'},
+            {data: 'publish_date', searchable: false},
+            {data: 'status', searchable: false, sortable: false},
+            {data: 'author', searchable: false},
+            {data: 'action', searchable: false, sortable: false},
+        ]
+    });
 
     function addForm(url, title = 'Tambah') {
         $(modal).modal('show');
@@ -104,7 +119,6 @@
                     loopErrors(errors.responseJSON.errors);
                     return;
                 }
-
                 showAlert(errors.responseJSON.message, 'danger');
             });
     }
