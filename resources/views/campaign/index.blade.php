@@ -15,12 +15,7 @@
                 <button onclick="addForm(`{{ route('campaign.store') }}`)" class="btn btn-primary"><i
                         class="fas fa-plus-circle"></i> Tambah</button>
             </x-slot>
-
-            <form action="" class="d-flex justify-content-between">
-                <x-dropdown-table />
-                <x-filter-table />
-            </form>
-
+            
             <x-table>
                 <x-slot name="thead">
                     <th width="5%">No</th>
@@ -50,6 +45,9 @@
 @push('scripts')
 <script>
     let modal = '#modal-form';
+    let table;
+
+    $('.table').dataTable();
 
     function addForm(url, title = 'Tambah') {
         $(modal).modal('show');
@@ -101,6 +99,7 @@
                 table.ajax.reload();
             })
             .fail(errors => {
+                console.log(errors.responseJSON.errors);
                 if (errors.status == 422) {
                     loopErrors(errors.responseJSON.errors);
                     return;
@@ -155,14 +154,46 @@
             return;
         }
 
-        for (const error in object) {
+        for (error in errors) {
             $(`[name=${error}]`).addClass('is-invalid');        
             
-            $(`<span class="error invalid-feedback">${errors[error][0]}</span>`)
+            if ($(`[name=${error}]`).hasClass('select2')) {
+                $(`<span class="error invalid-feedback">${errors[error][0]}</span>`)
+                .insertAfter($(`[name=${error}]`).next());
+            } else if ($(`[name=${error}]`).hasClass('summernote')) {
+                $(`<span class="error invalid-feedback">${errors[error][0]}</span>`)
+                .insertAfter($(`[name=${error}]`).next());
+            } else if ($(`[name=${error}]`).hasClass('custom-control-input')) {
+                $(`<span class="error invalid-feedback">${errors[error][0]}</span>`)
+                .insertAfter($(`[name=${error}]`).next());
+            } else {
+                $(`<span class="error invalid-feedback">${errors[error][0]}</span>`)
                 .insertAfter($(`[name=${error}]`));
+            }            
         }
     }
     
+    function showAlert(message, type) {
+        let title = '';
+        switch (type) {
+            case 'success':
+                title = 'Success';
+                break;
+            case 'danger':
+                title = 'Failed';
+                break;        
+            default:
+                break;
+        }
+
+        $(document).Toasts('create', {
+            class: `bg-${type}`,
+            title: title,
+            autohide: true,
+            delay: 3000,               
+            body: message
+        });
+    }
 
 </script>
 @endpush

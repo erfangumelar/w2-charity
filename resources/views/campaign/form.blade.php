@@ -124,6 +124,6 @@
 
     <x-slot name="footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button class="btn btn-primary">Simpan</button>
+        <button type="button" class="btn btn-primary" onclick="submitForm(this.form)">Simpan</button>
     </x-slot>
 </x-modal>
